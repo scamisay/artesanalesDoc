@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Modelado de Artesanales</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<style type="text/css">
+		.table td, th{
+   text-align: center;   
+}
+
+	.fa-check{
+		color: green;
+	}
+
+	.fa-times{
+		color: #9D261D;
+	}
+
+	</style>
+</head>
+<body>
+	<div class="container">		
+		<div class="jumbotron">
+			<h1>Modelado de Artesanales</h1>
+			<p>El propósito de esta documento es definir el modelado de los procesos, la planificación de órdenes de trabajo y otros casos de uso que hagan al alcance de la aplicación</p>
+		</div>
+
+		<div class="container">
+			<section class="row">
+    			<h2>Perfiles de Usuarios y Permisos</h2>
+    			<table class="table">
+    				<thead class="thead-inverse">
+    					<tr>
+    						<th colspan="2"></th>
+    						<th>Administrador</th>
+    						<th>Supervisor</th>
+    						<th>Operador de Centro de Trabajo</th>
+    					</tr>
+    				</thead>
+    				<tbody>
+    					<tr>
+    						<th rowspan="2">Usuarios</th>
+    						<th>listar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    					</tr>
+    					<tr>
+    						<th>crear/modificar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    					</tr>
+
+    					<tr>
+    						<th rowspan="4">Centros de Trabajo</th>
+    						<th>listar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    					<tr>
+    						<th>crear/modificar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    					</tr>
+    					<tr>
+    						<th>crear/modificar Máquina</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    						<td><i class="fa fa-times"></i></td>
+    					</tr>
+    					<tr>
+    						<th>listar Ordenes de Trabajo en Centro</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    					<tr>
+    						<th rowspan="2">Orden de Venta</th>
+    						<th>listar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    					<tr>
+    						<th>crear/modificar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    					<tr>
+    						<th rowspan="2">Orden de Trabajo</th>
+    						<th>listar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    					<tr>
+    						<th>crear/modificar</th>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    						<td><i class="fa fa-check"></i></td>
+    					</tr>
+    				</tbody>
+    			</table>	
+			</section>
+
+			<section class="row">
+    			<h2>Relación entre Centros de Trabajo y Ordenes de venta</h2>
+    			<p>Por cada <em>centro de trabajo</em> el <strong>Administrador</strong> puede definir un conjunto de <strong>especificaciones</strong> que impactan en la composición del formulario de alta de una <em>orden de venta</em>.</p>
+    			<p>Una <strong>especificación</strong> es un campo que es necesario especificar para que el <em>centro de venta</em> pueda operar con el pedido. Para una especificación dada se puede definir un conjunto de valores válidos para la misma.</p>
+    			<p>Puede haber más de una especificación por <em>centro de trabajo</em>.</p>
+    			<div>
+    				<div class = "thumbnail">
+    					<img src="specification_in_wc.png"/>
+    				</div>
+    				<div class = "caption">
+						<h3>Fig. 1</h3>
+						<p><em>El centro de trabajo CT cuenta con las especificaciones esp_1 y esp_2, con valores {v1,v2,v3} y {11,122} respectivamente.</em></p>
+					</div>
+    			</div>	
+    			<p>En la pantalla de cada <em>centro de trabajo</em> se pueden ver las <em>ordenes de trabajo</em> que fueron, son o seran procesadas por este. Se visualizan las ordenes a través de una tabla. Se puede elegir qué columnas mostrar para cada centro.</p>
+    			<div>
+    				<div class = "thumbnail">
+    					<img src="specification_in_so.png"/>
+    				</div>
+    				<div class = "caption">
+						<h3>Fig. 2</h3>
+						<p><em>Parte de un alta de una orden de venta, donde se pueden ver las dos especificaciones que corresponden al centro de trabajo CT.</em></p>
+					</div>
+    			</div>	
+    		</section>
+
+    		<section class="row">
+    			<h2>Procesos definidos por Ordenes de Venta</h2>
+    			<p>Una <em>orden de venta</em> define un proceso compuesto por <em>centros de trabajo</em>. Entre estos últimos se puede definir un orden de presedencia en la configuración de sus pantallas respectivas.</p>
+    		</section>
+
+    		<section class="row">
+    			<h2>Planificación sobe Ordenes de Trabajo</h2>
+    			<p>Como las <em>ordenes de trabajo</em> pertenecen a una <em>orden de venta</em>, se hereda el proceso de <em>centros de trabajo</em> definido.</p>
+    			<p>Cada <em>orden de trabajo</em> genera una planificación teniendo como hoja de ruta el proceso definido.</p>
+    			<div>
+    				<div class = "thumbnail">
+    					<img src="scheduling.png"/>
+    				</div>
+    				<div class = "caption">
+						<h3>Fig. 3</h3>
+						<p><em>Se muestra la planificación de una orden basada en su proceso. Marcando con verde el centro de trabajo en el que se encuentra la orden.</em></p>
+					</div>
+    			</div>	
+    		</section>
+
+		</div>
+	</div>
+
+</body>
+</html>
